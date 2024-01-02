@@ -1,4 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+
 import { StatusBar } from "expo-status-bar";
 import { Image, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -6,6 +8,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 //Screens
 import HomeScreen from "./screens/HomeScreen";
+import CartScreen from "./screens/CartScreen";
 
 
 
@@ -23,6 +26,14 @@ const footer_barcode = require("./assets/image/footerIcons/barcode.png")
 
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+
+
+
+
+
+
 
 
 
@@ -58,6 +69,23 @@ const ProfileScreen = () => {
   );
 };
 
+
+
+const StackScreen = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false }} />
+    </Stack.Navigator>
+  )
+}
+
+
+
+
+
+
+
 const App = () => {
   return (
     <>
@@ -83,7 +111,7 @@ const App = () => {
             
             tabBarIcon: ({ focused }) => {
               let icon = ""
-              if (route.name === "Home") {
+              if (route.name === "INITIAL") {
                 icon = focused ? footer_home_active : footer_home
               }else if (route.name === "Search"){
                 icon = focused ? footer_search_active : footer_search
@@ -102,18 +130,11 @@ const App = () => {
                   </View>
                 )
               }
-              
-    
-
-
-
-
-
               return <Image source={icon} resizeMode="contain" className="w-6" />;
             },  
           })}
         >
-          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="INITIAL" component={StackScreen} />
           <Tab.Screen name="Search" component={SearchScreen} />
           <Tab.Screen name="Barcode" component={BarcodeScreen} />
           <Tab.Screen name="Like" component={LikeScreen} />
