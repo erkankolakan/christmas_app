@@ -32,14 +32,8 @@ const banner_1 = require("../assets/image/HomepageImage/banner_1.png");
 
 const PRODUCTS = HOME_PRODUCTS;
 
-const HomeScreen = () => {
-
-
+const HomeScreen = ({ navigation }) => {
   const [products, setProducts] = useState([]);
-
-
-
-
 
   return (
     <SafeAreaView className="flex-1  ">
@@ -49,7 +43,13 @@ const HomeScreen = () => {
             <Text className="text-gray-500 mt-4">Hello,</Text>
             <Text className="font-semibold text-[16px]">Erkan KOLAKAN</Text>
           </View>
-          <TouchableOpacity className="w-14 h-14" activeOpacity={0.5}>
+          <TouchableOpacity
+            className="w-14 h-14"
+            activeOpacity={0.5}
+            onPress={() => {
+              navigation.navigate("Cart");
+            }}
+          >
             <View className="w-5 h-5 justify-center absolute z-10 -right-1 -top-1 items-center bg-kirmizi3 rounded-full">
               <Text className="text-[13px] text-white">{products.length}</Text>
             </View>
@@ -189,237 +189,236 @@ const HomeScreen = () => {
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
           >
-          {/* ROW */}
-              <View className="pb-16">
-                <View className="h-44 flex-row">
-                  <View className="flex-1 m-1 p-2 bg-white rounded-md">
-                    <View className="h-24 flex justify-center items-center  ">
-                      <Image
-                        source={product_1}
-                        className=" w-full h-full "
-                        resizeMode="contain"
-                      />
-                    </View>
-                    <View className="flex-1 flex-row justify-between mt-2">
-                      {/* left */}
-                      <View className="flex-1">
-                        <Text className="text-[13.5px] font-semibold">
-                          {PRODUCTS[0].name}
-                        </Text>
-                        <Text className="text-kirmizi3 ">
-                          ${PRODUCTS[0].price}.00
-                        </Text>
-                      </View>
-
-                      {/* right */}
-                      <View className="flex justify-center items-center">
-                        <View>
-                          <TouchableOpacity
-                            className="w-6 h-6 bg-kirmizi3 rounded-full flex justify-center items-center"
-                            activeOpacity={0.7}
-                            onPress={() => {
-                              let duplicate = products.filter(
-                                (element) => element.id == PRODUCTS[0].id
-                              );
-                              if (duplicate.length != 0) {
-                                Alert.alert(
-                                  "Uyarı",
-                                  "Bu ürün zaten sepetinizde mevcut",
-                                  [
-                                    {
-                                      text: "Tamam",
-                                      onPress: () => console.log("OK Pressed"),
-                                    },
-                                  ]
-                                );
-                              } else {
-                                setProducts([...products, PRODUCTS[0]]);
-                              }
-                            }}
-                          >
-                            <Image
-                              source={addIcon}
-                              className="w-3 h-3"
-                              resizeMode="contain"
-                            />
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                    </View>
+            {/* ROW */}
+            <View className="pb-16">
+              <View className="h-44 flex-row">
+                <View className="flex-1 m-1 p-2 bg-white rounded-md">
+                  <View className="h-24 flex justify-center items-center  ">
+                    <Image
+                      source={product_1}
+                      className=" w-full h-full "
+                      resizeMode="contain"
+                    />
                   </View>
-
-                  <View className="flex-1 m-1 p-2 bg-white rounded-md">
-                    <View className="h-24 flex justify-center items-center ">
-                      <Image
-                        source={product_2}
-                        className=" w-full h-full"
-                        resizeMode="cover"
-                      />
+                  <View className="flex-1 flex-row justify-between mt-2">
+                    {/* left */}
+                    <View className="flex-1">
+                      <Text className="text-[13.5px] font-semibold">
+                        {PRODUCTS[0].name}
+                      </Text>
+                      <Text className="text-kirmizi3 ">
+                        ${PRODUCTS[0].price}.00
+                      </Text>
                     </View>
-                    <View className="flex-1 flex-row justify-between mt-2">
-                      {/* left */}
-                      <View className="flex-1">
-                        <Text className="text-[13.5px] font-semibold">
-                          {PRODUCTS[1].name}
-                        </Text>
-                        <Text className="text-kirmizi3 ">
-                          ${PRODUCTS[1].price}.00
-                        </Text>
-                      </View>
 
-                      {/* right */}
-                      <View className="flex justify-center items-center">
-                        <View>
-                          <TouchableOpacity
-                            className="w-6 h-6 bg-kirmizi3 rounded-full flex justify-center items-center"
-                            activeOpacity={0.7}
-                            onPress={() => {
-                              let duplicate = products.filter(
-                                (element) => element.id == PRODUCTS[1].id
+                    {/* right */}
+                    <View className="flex justify-center items-center">
+                      <View>
+                        <TouchableOpacity
+                          className="w-6 h-6 bg-kirmizi3 rounded-full flex justify-center items-center"
+                          activeOpacity={0.7}
+                          onPress={() => {
+                            let duplicate = products.filter(
+                              (element) => element.id == PRODUCTS[0].id
+                            );
+                            if (duplicate.length != 0) {
+                              Alert.alert(
+                                "Uyarı",
+                                "Bu ürün zaten sepetinizde mevcut",
+                                [
+                                  {
+                                    text: "Tamam",
+                                    onPress: () => console.log("OK Pressed"),
+                                  },
+                                ]
                               );
-                              if (duplicate.length != 0) {
-                                Alert.alert(
-                                  "Uyarı",
-                                  "Bu ürün zaten sepetinizde mevcut",
-                                  [
-                                    {
-                                      text: "Tamam",
-                                      onPress: () => console.log("OK Pressed"),
-                                    },
-                                  ]
-                                );
-                              } else {
-                                setProducts([...products, PRODUCTS[1]]);
-                              }
-                            }}
-                          >
-                            <Image
-                              source={addIcon}
-                              className="w-3 h-3"
-                              resizeMode="contain"
-                            />
-                          </TouchableOpacity>
-                        </View>
+                            } else {
+                              setProducts([...products, PRODUCTS[0]]);
+                            }
+                          }}
+                        >
+                          <Image
+                            source={addIcon}
+                            className="w-3 h-3"
+                            resizeMode="contain"
+                          />
+                        </TouchableOpacity>
                       </View>
                     </View>
                   </View>
                 </View>
 
-                <View className="h-44 flex-row">
-                  <View className="flex-1 m-1 p-2 bg-white rounded-md">
-                    <View className="h-24 flex justify-center items-center  ">
-                      <Image
-                        source={product_3}
-                        className=" w-full h-full "
-                        resizeMode="contain"
-                      />
-                    </View>
-                    <View className="flex-1 flex-row justify-between mt-2">
-                      {/* left */}
-                      <View className="flex-1">
-                        <Text className="text-[13.5px] font-semibold">
-                          {PRODUCTS[2].name}
-                        </Text>
-                        <Text className="text-kirmizi3 ">
-                          ${PRODUCTS[2].price}.00
-                        </Text>
-                      </View>
-
-                      {/* right */}
-                      <View className="flex justify-center items-center">
-                        <View>
-                          <TouchableOpacity
-                            className="w-6 h-6 bg-kirmizi3 rounded-full flex justify-center items-center"
-                            activeOpacity={0.7}
-                            onPress={() => {
-                              let duplicate = products.filter(
-                                (element) => element.id == PRODUCTS[2].id
-                              );
-                              if (duplicate.length != 0) {
-                                Alert.alert(
-                                  "Uyarı",
-                                  "Bu ürün zaten sepetinizde mevcut",
-                                  [
-                                    {
-                                      text: "Tamam",
-                                      onPress: () => console.log("OK Pressed"),
-                                    },
-                                  ]
-                                );
-                              } else {
-                                setProducts([...products, PRODUCTS[2]]);
-                              }
-                            }}
-                          >
-                            <Image
-                              source={addIcon}
-                              className="w-3 h-3"
-                              resizeMode="contain"
-                            />
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                    </View>
+                <View className="flex-1 m-1 p-2 bg-white rounded-md">
+                  <View className="h-24 flex justify-center items-center ">
+                    <Image
+                      source={product_2}
+                      className=" w-full h-full"
+                      resizeMode="cover"
+                    />
                   </View>
-
-                  <View className="flex-1 m-1 p-2 bg-white rounded-md">
-                    <View className="h-24 flex justify-center items-center ">
-                      <Image
-                        source={product_4}
-                        className=" w-full h-full"
-                        resizeMode="contain"
-                      />
+                  <View className="flex-1 flex-row justify-between mt-2">
+                    {/* left */}
+                    <View className="flex-1">
+                      <Text className="text-[13.5px] font-semibold">
+                        {PRODUCTS[1].name}
+                      </Text>
+                      <Text className="text-kirmizi3 ">
+                        ${PRODUCTS[1].price}.00
+                      </Text>
                     </View>
-                    <View className="flex-1 flex-row justify-between mt-2">
-                      {/* left */}
-                      <View className="flex-1">
-                        <Text className="text-[13.5px] font-semibold">
-                          {PRODUCTS[3].name}
-                        </Text>
-                        <Text className="text-kirmizi3 ">
-                          ${PRODUCTS[3].price}.00
-                        </Text>
-                      </View>
 
-                      {/* right */}
-                      <View className="flex justify-center items-center">
-                        <View>
-                          <TouchableOpacity
-                            className="w-6 h-6 bg-kirmizi3 rounded-full flex justify-center items-center"
-                            activeOpacity={0.7}
-                            onPress={() => {
-                              let duplicate = products.filter(
-                                (element) => element.id == PRODUCTS[3].id
+                    {/* right */}
+                    <View className="flex justify-center items-center">
+                      <View>
+                        <TouchableOpacity
+                          className="w-6 h-6 bg-kirmizi3 rounded-full flex justify-center items-center"
+                          activeOpacity={0.7}
+                          onPress={() => {
+                            let duplicate = products.filter(
+                              (element) => element.id == PRODUCTS[1].id
+                            );
+                            if (duplicate.length != 0) {
+                              Alert.alert(
+                                "Uyarı",
+                                "Bu ürün zaten sepetinizde mevcut",
+                                [
+                                  {
+                                    text: "Tamam",
+                                    onPress: () => console.log("OK Pressed"),
+                                  },
+                                ]
                               );
-                              if (duplicate.length != 0) {
-                                Alert.alert(
-                                  "Uyarı",
-                                  "Bu ürün zaten sepetinizde mevcut",
-                                  [
-                                    {
-                                      text: "Tamam",
-                                      onPress: () => console.log("OK Pressed"),
-                                    },
-                                  ]
-                                );
-                              } else {
-                                setProducts([...products, PRODUCTS[3]]);
-                              }
-                            }}
-                          >
-                            <Image
-                              source={addIcon}
-                              className="w-3 h-3"
-                              resizeMode="contain"
-                            />
-                          </TouchableOpacity>
-                        </View>
+                            } else {
+                              setProducts([...products, PRODUCTS[1]]);
+                            }
+                          }}
+                        >
+                          <Image
+                            source={addIcon}
+                            className="w-3 h-3"
+                            resizeMode="contain"
+                          />
+                        </TouchableOpacity>
                       </View>
                     </View>
                   </View>
                 </View>
-
               </View>
+
+              <View className="h-44 flex-row">
+                <View className="flex-1 m-1 p-2 bg-white rounded-md">
+                  <View className="h-24 flex justify-center items-center  ">
+                    <Image
+                      source={product_3}
+                      className=" w-full h-full "
+                      resizeMode="contain"
+                    />
+                  </View>
+                  <View className="flex-1 flex-row justify-between mt-2">
+                    {/* left */}
+                    <View className="flex-1">
+                      <Text className="text-[13.5px] font-semibold">
+                        {PRODUCTS[2].name}
+                      </Text>
+                      <Text className="text-kirmizi3 ">
+                        ${PRODUCTS[2].price}.00
+                      </Text>
+                    </View>
+
+                    {/* right */}
+                    <View className="flex justify-center items-center">
+                      <View>
+                        <TouchableOpacity
+                          className="w-6 h-6 bg-kirmizi3 rounded-full flex justify-center items-center"
+                          activeOpacity={0.7}
+                          onPress={() => {
+                            let duplicate = products.filter(
+                              (element) => element.id == PRODUCTS[2].id
+                            );
+                            if (duplicate.length != 0) {
+                              Alert.alert(
+                                "Uyarı",
+                                "Bu ürün zaten sepetinizde mevcut",
+                                [
+                                  {
+                                    text: "Tamam",
+                                    onPress: () => console.log("OK Pressed"),
+                                  },
+                                ]
+                              );
+                            } else {
+                              setProducts([...products, PRODUCTS[2]]);
+                            }
+                          }}
+                        >
+                          <Image
+                            source={addIcon}
+                            className="w-3 h-3"
+                            resizeMode="contain"
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+
+                <View className="flex-1 m-1 p-2 bg-white rounded-md">
+                  <View className="h-24 flex justify-center items-center ">
+                    <Image
+                      source={product_4}
+                      className=" w-full h-full"
+                      resizeMode="contain"
+                    />
+                  </View>
+                  <View className="flex-1 flex-row justify-between mt-2">
+                    {/* left */}
+                    <View className="flex-1">
+                      <Text className="text-[13.5px] font-semibold">
+                        {PRODUCTS[3].name}
+                      </Text>
+                      <Text className="text-kirmizi3 ">
+                        ${PRODUCTS[3].price}.00
+                      </Text>
+                    </View>
+
+                    {/* right */}
+                    <View className="flex justify-center items-center">
+                      <View>
+                        <TouchableOpacity
+                          className="w-6 h-6 bg-kirmizi3 rounded-full flex justify-center items-center"
+                          activeOpacity={0.7}
+                          onPress={() => {
+                            let duplicate = products.filter(
+                              (element) => element.id == PRODUCTS[3].id
+                            );
+                            if (duplicate.length != 0) {
+                              Alert.alert(
+                                "Uyarı",
+                                "Bu ürün zaten sepetinizde mevcut",
+                                [
+                                  {
+                                    text: "Tamam",
+                                    onPress: () => console.log("OK Pressed"),
+                                  },
+                                ]
+                              );
+                            } else {
+                              setProducts([...products, PRODUCTS[3]]);
+                            }
+                          }}
+                        >
+                          <Image
+                            source={addIcon}
+                            className="w-3 h-3"
+                            resizeMode="contain"
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
           </ScrollView>
         </View>
       </View>

@@ -3,12 +3,13 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import { StatusBar } from "expo-status-bar";
 import { Image, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, getFocusedRouteNameFromRoute} from "@react-navigation/native";
 
 
 //Screens
 import HomeScreen from "./screens/HomeScreen";
 import CartScreen from "./screens/CartScreen";
+import DetailScreen from "./screens/DetailScreen";
 
 
 
@@ -76,12 +77,24 @@ const StackScreen = () => {
     <Stack.Navigator>
       <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Detail" component={DetailScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }
 
 
+// bu kısımda stack screende tab barın gözüküp gözükmemesini ayarlayabiliyoruz
+function getTabBarVisibility(route) {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'INITIAL';
 
+  if (routeName == 'Cart') {
+    return false;
+  }
+  if (routeName == 'Detail') {
+    return false;
+  }
+  return true;
+}
 
 
 
@@ -96,6 +109,7 @@ const App = () => {
             headerShown: false,
             tabBarShowLabel: false,
             tabBarStyle:{
+              display: getTabBarVisibility(route) ? 'flex' : 'none',
               position:"absolute",
               borderTopLeftRadius:25,
               borderTopRightRadius:25,

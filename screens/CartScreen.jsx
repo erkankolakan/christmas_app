@@ -24,7 +24,7 @@ const backbutton = require("../assets/image/cartScreenIcons/backbutton.png");
 const qtydown = require("../assets/image/cartScreenIcons/qtydown.png");
 const qtyup = require("../assets/image/cartScreenIcons/qtyup.png");
 
-const Product = ({ product }) => {
+const Product = ({ product ,navigation}) => {
 
   const [qty, setQty] = useState(1);
   
@@ -50,6 +50,11 @@ const Product = ({ product }) => {
   }
 
   return (
+    <TouchableOpacity key={product.id} activeOpacity={0.9}
+    onPress={() => {
+      navigation.navigate('Detail', { ID: product.id });
+    }}
+  >
     <View  className="flex flex-row bg-white h-24 my-2 mx-4 rounded-lg overflow-hidden  ">
       <View className="flex-[2] p-2">
         <Image
@@ -100,6 +105,7 @@ const Product = ({ product }) => {
         </TouchableOpacity>
       </View>
     </View>
+  </TouchableOpacity>
   );
 };
 
