@@ -24,22 +24,9 @@ const backbutton = require("../assets/image/cartScreenIcons/backbutton.png");
 const qtydown = require("../assets/image/cartScreenIcons/qtydown.png");
 const qtyup = require("../assets/image/cartScreenIcons/qtyup.png");
 
-const Product = ({ product,  updateTotal }) => {
-
+const Product = ({ product }) => {
 
   const [qty, setQty] = useState(1);
-
-  useEffect(() => {
-    updateTotal(product.price * qty);
-  }, [qty,  updateTotal]);
-
-  const handleQtyChange = (amount) => {
-    const newQty = qty + amount;
-    if (newQty >= 0) {
-      setQty(newQty);
-    }
-  };
-
   
   let imageName = "";
 
@@ -78,10 +65,12 @@ const Product = ({ product,  updateTotal }) => {
       </View>
 
       <View className="flex-1 flex-col justify-evenly items-center py-1">
-        <TouchableOpacity
-          activeOpacity={0.9}
-          onPress={() => handleQtyChange(1)}
-        >
+      <TouchableOpacity
+        activeOpacity={0.9}
+        onPress={() => {
+          setQty(qty + 1);
+        }}
+      >
           <View className="h-6 w-6 rounded-full flex justify-center items-center bg-kirmizi3">
             <Image
               source={qtyup}
@@ -92,10 +81,15 @@ const Product = ({ product,  updateTotal }) => {
         </TouchableOpacity>
 
         <Text className="">{qty}</Text>
+
         <TouchableOpacity
         activeOpacity={0.9}
-        onPress={() => handleQtyChange(-1)}
-        >
+        onPress={() => {
+          if (qty !== 0) {
+            setQty(qty - 1);
+          }
+        }}
+      >
           <View className="h-6 w-6 rounded-full  flex justify-center items-center bg-kirmizi3">
             <Image
               source={qtydown}
@@ -114,13 +108,6 @@ const Product = ({ product,  updateTotal }) => {
 
 
 const CartScreen = ({ navigation }) => {
-
-  const [totalAmount, setTotalAmount] = useState(0);
-
-  const updateTotalAmount = (amount) => {
-    setTotalAmount((prevTotal) => prevTotal + amount);
-  };
-
 
   return (
     <SafeAreaView className=" flex-1 ">
@@ -151,7 +138,7 @@ const CartScreen = ({ navigation }) => {
           >
             <View className="pb-16">
               {PRODUCTS.map((product) => {
-                return <Product key={product.id} product={product} updateTotal={updateTotalAmount} navigation={navigation} />;
+                return <Product key={product.id} product={product}  navigation={navigation} />;
               })}
             </View>
           </ScrollView>
@@ -159,7 +146,7 @@ const CartScreen = ({ navigation }) => {
 
         <View className="w-full h-[9%] absolute bottom-0 rounded-tl-2xl rounded-tr-2xl bg-white  ">
           <View className="flex-1 flex-row justify-between px-6 items-center">
-            <Text className="font-semibold text-lg ">${totalAmount.toFixed(2)}</Text>
+            <Text className="font-semibold text-lg ">$550,00</Text>
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => {
